@@ -15,19 +15,18 @@ Pod::Spec.new do |s|
   s.source_files        = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
 
+  s.prepare_command = <<-CMD
+    if [ ! -d "./Frameworks/ffmpegkit.framework" ]; then
+      bash ../scripts/setup_macos.sh
+    fi
+  CMD
+
   s.default_subspec     = 'min'
 
   s.dependency          'FlutterMacOS'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 
   s.subspec 'min' do |ss|
-    ss.prepare_command = <<-CMD
-      if [ ! -d "./Frameworks/ffmpegkit.framework" ]; then
-        bash ../scripts/setup_macos.sh
-      fi
-    CMD
-    ss.source_files         = 'Classes/**/*'
-    ss.public_header_files  = 'Classes/**/*.h'
     ss.osx.vendored_frameworks = 'Frameworks/ffmpegkit.framework',
                                  'Frameworks/libavcodec.framework',
                                  'Frameworks/libavdevice.framework',
