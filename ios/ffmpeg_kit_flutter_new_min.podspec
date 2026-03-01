@@ -22,9 +22,8 @@ Pod::Spec.new do |s|
 
   s.subspec 'min' do |ss|
     ss.prepare_command = <<-CMD
-      if [ ! -d "./Frameworks" ]; then
-        chmod +x ../scripts/setup_ios.sh
-        ../scripts/setup_ios.sh
+      if [ ! -d "./Frameworks/ffmpegkit.xcframework" ]; then
+        bash ../scripts/setup_ios.sh
       fi
     CMD
     ss.source_files         = 'Classes/**/*'
